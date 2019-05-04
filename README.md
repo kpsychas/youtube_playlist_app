@@ -36,3 +36,11 @@ File oauth2.go was retrieved and should be configured based on the instructions 
 To run the code you need both a developer key (validates you as a developer) and
 user authentication (anyone including yourself should give permission to the
 application/script to access their data)
+
+## Run the script
+
+Include dependencies in run command as
+
+```
+go run .\youtube_playlists.go .\errors.go .\oauth2.go
+```

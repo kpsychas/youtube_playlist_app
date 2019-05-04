@@ -38,8 +38,9 @@ func playlistsListMine(service *youtube.Service, part string, pageToken string) 
 
 // Get single video
 func videoList(service *youtube.Service, part string, id string) *youtube.VideoListResponse {
+        maxRes := int64(50)  // Default is 5, acceptable values: 1 to 50 inclusive
         call := service.Videos.List(part)
-        call = call.Id(id)
+        call = call.Id(id).MaxResults(maxRes)
         response, err := call.Do()
         handleError(err, "")
         return response
