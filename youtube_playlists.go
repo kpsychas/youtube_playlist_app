@@ -2,6 +2,7 @@ package main
 
 import (
         //"encoding/json"
+        "flag"
         "fmt"
         "log"
         "os"
@@ -83,17 +84,22 @@ func printPlaylistVideos(service *youtube.Service, playlistId string, f *os.File
 
 
 func main() {
+    // Parse playlist id if given
+    var cmdPlaylistId string
+    flag.StringVar(&cmdPlaylistId, "l", "", "Optional PlaylistId string")
+    flag.Parse()
+
     // Get Client
     client := getClient(youtube.YoutubeReadonlyScope)
     service, err := youtube.New(client)
 
     if err != nil {
-            log.Fatalf("Error creating YouTube client: %v", err)
+        log.Fatalf("Error creating YouTube client: %v", err)
     }
 
     // Create and open file for results
     t := time.Now()
-    outputFileName := t.Format("./results2006-01-02.txt")
+    outputFileName := fmt.Sprintf("%s%s.txt", t.Format("./results2006-01-02"), cmdPlaylistId)
     f, err := os.Create(outputFileName)
 
     if err != nil {
@@ -110,12 +116,14 @@ func main() {
 
         for _, playlist := range response.Items {
             playlistId := playlist.Id
-            playlistTitle := playlist.Snippet.Title
+            if (cmdPlaylistId == playlistId || cmdPlaylistId == "") {
+                playlistTitle := playlist.Snippet.Title
 
-            fmt.Fprintf(f, "================================\r\n")
-            fmt.Fprintf(f, "Videos in list %s\r\n", playlistTitle)
+                fmt.Fprintf(f, "================================\r\n")
+                fmt.Fprintf(f, "Videos in list %s\r\n", playlistTitle)
 
-            printPlaylistVideos(service, playlistId, f)
+                printPlaylistVideos(service, playlistId, f)
+            }
         }
 
         nextPageToken = response.NextPageToken
