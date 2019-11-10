@@ -8,7 +8,8 @@ and number of dislikes and name of file is suffixed by the current date.
 
 ## Use cases
 - Videos are on Youtube are often removed without notice and their metadata are
-lost. It is easy to recover them with the video id.
+lost. With this application it is easy to find them from local storage by
+searching their video id.
 
 - If playlists are polled regularly and enough data are gathered, one can
 generate more advanced statistics on them
