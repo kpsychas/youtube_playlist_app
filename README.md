@@ -1,7 +1,7 @@
 # Youtube Playlist App
 
-The application saves the metadata of __all__ the videos in __all__ the
-playlists created by the authenticated user in a local text file.
+The application saves the metadata of __all__ the videos in one or more of the
+playlists created by the authenticated user.
 For each video the data stored are the title, id, views, number of likes
 and number of dislikes and name of file is suffixed by the current date.
 
